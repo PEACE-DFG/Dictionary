@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="icons/all.min.css">
+    <title>Document</title>
+</head>
+<body>
+
+    <section class="wrapper" >
+
+        <section class="whole">
+            <nav>
+                <ul>
+                    <li class="name"> CODEMaster <span style="font-size: 15px;"> DICTIONARY</span> <span style="color: white;"><i class="fa-solid fa-book-open"></i></span></li>
+                    
+                </ul>
+
+                <ul>
+                    <li>Translation Accuracy <span><i class="fa-solid fa-check"></i></span></li>
+                    <li>Correct Part-speech <span><i class="fa-solid fa-check"></i></span></li>
+                    <li>Audio-play <span><i class="fa-solid fa-xmark"></i></span></li>
+                </ul>
+            </nav>
+            <hr style="max-width: 1300px;margin:auto">
+
+            <section class="user_section">
+
+                <div class="insert">
+                    <div>
+                    <h3 class="instruct">Please input Your Search Word Below:</h3>
+                	 </div>
+                     
+                     <div>
+                    <input type="text" id="user_input">
+                     </div>
+                    <div> <button onclick="display()"><i class="fa-solid fa-search"></i></button>
+                   </div>
+                </div>
+
+            </section >
+
+            <section class="word_audio">
+
+                <div class="mean">
+                    <p id="word"></p>
+                    <p id="phonetic"></p>
+
+                </div>
+                <!-- <div class="audio">
+                    <button onclick="playing()" id="aud"><i class="fa-solid fa-volume-xmark"></i></button>
+                    
+                </div> -->
+            <hr style="max-width: 1300px;margin:auto; margin-bottom:50px">
+
+
+            </section>
+
+            <section class="tabledata">
+                <table>
+                    <tr>
+                        <th>
+                            <p id="definition"></p>
+
+                            <p id="example"></p>
+                        </th>
+                       
+                    </tr>
+                    <tr>
+                        <th> 
+                            <p id="Transcript">  </p>
+                         </th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p id="synonym"></p>
+
+                            <p id="antonym"></p>
+                        </td>
+                       
+                    </tr>
+                    <tr>
+                        <td>
+                            <p id="partspeech">
+                               
+                            </p>
+                        </td>
+                    </tr>
+
+                </table>
+            </section>
+
+        </section>
+
+
+
+
+    </section>
+
+
+
+    <script type="text/javascript">
+
+        function display(){
+            
+            let input_value=document.getElementById('user_input').value;
+            fetch("https://api.dictionaryapi.dev/api/v2/entries/en/" +input_value)
+            .then(data=>data.json())
+            .then(response=>{
+            // let results= 
+             let word = response[0].word
+                let phonetic =response[0].phonetic
+                let meaning = response[0].meanings[0].definitions[0].definition
+                let example1 = response[0].meanings[0].definitions[0].example
+                let example2 = response[0].meanings[0].definitions[1].example
+                let example3 = response[0].meanings[0].definitions[2].example
+
+                let partofspeech = response[0].meanings[0].partOfSpeech
+                let synonym1=response[0].meanings[0].synonyms[0]
+                let synonym2=response[0].meanings[0].synonyms[1]
+                let synonym3=response[0].meanings[0].synonyms[2]
+                let synonym4=response[0].meanings[0].synonyms[3]
+                let antonym=response[0].meanings[0].antonyms[0]
+                let audio=  response[0].phonetics[0].audio
+                
+
+    console.log(response)
+    console.log(phonetic)
+    console.log(meaning)
+    console.log(synonym1)
+    console.log(partofspeech)
+    console.log(audio)
+
+    document.getElementById('word').innerHTML="//" +  word;
+    document.getElementById('phonetic').innerHTML=phonetic;
+    document.getElementById('Transcript').innerHTML= "Phonetics" + " "+phonetic;
+    document.getElementById('definition').innerHTML= " Definition:"+ " " +meaning;
+    document.getElementById('synonym').innerHTML= "Synonyms:" + " "+ synonym1 + " ," + synonym2 + " ," +synonym3+ " ," +synonym4;
+    document.getElementById('antonym').innerHTML= "Antonyms:" + antonym;
+    document.getElementById('example').innerHTML= "Example:" +" "+ example1 + " ," + example2 + " ," +example3;
+    document.getElementById('partspeech').innerHTML= "Part Of Speech: " + partofspeech ;
+    console.log(word)
+
+
+
+   
+})
+
+
+
+}
+
+
+    
+
+    </script>
+    
+</body>
+</html>
