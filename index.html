@@ -107,6 +107,7 @@
         function display(){
             
             let input_value=document.getElementById('user_input').value;
+           
             fetch("https://api.dictionaryapi.dev/api/v2/entries/en/" +input_value)
             .then(data=>data.json())
             .then(response=>{
@@ -114,15 +115,11 @@
              let word = response[0].word
                 let phonetic =response[0].phonetic
                 let meaning = response[0].meanings[0].definitions[0].definition
-                let example1 = response[0].meanings[0].definitions[0].example
-                let example2 = response[0].meanings[0].definitions[1].example
-                let example3 = response[0].meanings[0].definitions[2].example
+                let example = response[0].meanings[0].definitions[0].example
+                
 
                 let partofspeech = response[0].meanings[0].partOfSpeech
-                let synonym1=response[0].meanings[0].synonyms[0]
-                let synonym2=response[0].meanings[0].synonyms[1]
-                let synonym3=response[0].meanings[0].synonyms[2]
-                let synonym4=response[0].meanings[0].synonyms[3]
+                let synonym=response[0].meanings[0].synonyms[0]
                 let antonym=response[0].meanings[0].antonyms[0]
                 let audio=  response[0].phonetics[0].audio
                 
@@ -130,7 +127,9 @@
     console.log(response)
     console.log(phonetic)
     console.log(meaning)
-    console.log(synonym1)
+    console.log(synonym)
+    console.log(antonym)
+    console.log(typeof antonym)
     console.log(partofspeech)
     console.log(audio)
 
@@ -138,12 +137,77 @@
     document.getElementById('phonetic').innerHTML=phonetic;
     document.getElementById('Transcript').innerHTML= "Phonetics" + " "+phonetic;
     document.getElementById('definition').innerHTML= " Definition:"+ " " +meaning;
-    document.getElementById('synonym').innerHTML= "Synonyms:" + " "+ synonym1 + " ," + synonym2 + " ," +synonym3+ " ," +synonym4;
+    document.getElementById('synonym').innerHTML= "Synonyms:" + " "+ synonym
     document.getElementById('antonym').innerHTML= "Antonyms:" + antonym;
-    document.getElementById('example').innerHTML= "Example:" +" "+ example1 + " ," + example2 + " ," +example3;
+    document.getElementById('example').innerHTML= "Example:" +" "+ example
     document.getElementById('partspeech').innerHTML= "Part Of Speech: " + partofspeech ;
     console.log(word)
 
+
+    if (user_input==null){
+        let word = " Definition Not Found"
+    document.getElementById('word').innerHTML="//" +  word;
+
+
+    }
+   
+
+    if (antonym== undefined){
+        let antonym= " Antonym: Not Found"
+        document.getElementById('antonym').innerHTML=antonym;
+    
+        
+    }
+    else {
+    document.getElementById('antonym').innerHTML= "Antonyms:" + antonym;
+
+    
+    }
+
+    if (synonym== undefined){
+        let synonym= " Synonym: Not Found"
+        document.getElementById('synonym').innerHTML=synonym;
+    
+        
+    }
+    else{
+    document.getElementById('synonym').innerHTML= "Synonym:" + synonym;
+
+    
+    }
+    if (example== undefined){
+        let example= " Example: Not Found"
+        document.getElementById('example').innerHTML=example;
+    
+        
+    }
+    else{
+    document.getElementById('example').innerHTML= "Example:" + example;
+
+    
+    }
+    if (phonetic== undefined){
+        let phonetic= " Phonetics: Not Found"
+        document.getElementById('phonetic').innerHTML=phonetic;
+    
+        
+    }
+    else{
+    document.getElementById('phonetic').innerHTML= " Part Of Speech:" + phonetic;
+
+    
+    }
+    if (partofspeech== undefined){
+        let partofspeech= " Part Of Speech: Not Found"
+        document.getElementById('partspeech').innerHTML=partofspeech;
+    
+        
+    }
+    else{
+    document.getElementById('partspeech').innerHTML= " Part Of Speech:" + partofspeech;
+
+    
+    }
 
 
    
@@ -151,7 +215,10 @@
 
 
 
+
+
 }
+
 
 
     
