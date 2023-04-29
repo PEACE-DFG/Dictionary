@@ -144,7 +144,7 @@
     console.log(word)
 
 
-    if (user_input==null){
+    if ( response== null ){
         let word = " Definition Not Found"
     document.getElementById('word').innerHTML="//" +  word;
 
@@ -194,6 +194,17 @@
     }
     else{
     document.getElementById('phonetic').innerHTML= " Part Of Speech:" + phonetic;
+
+    
+    }
+    if (phonetic== undefined){
+        let phonetic= " Phonetics: Not Found"
+        document.getElementById('Transcript').innerHTML=phonetic;
+    
+        
+    }
+    else{
+    document.getElementById('Transcript').innerHTML= " Part Of Speech:" + phonetic;
 
     
     }
